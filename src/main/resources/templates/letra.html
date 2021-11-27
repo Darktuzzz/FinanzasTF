@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Letra</title>
+
+<!-- Custom fonts for this template-->
+<link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+	<span sec:authentication="name"></span>
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+		<!-- Slidebar -->
+		<!-- End of Slidebar -->
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+				<div th:replace="fragments/header :: header"></div>
+				<!-- End of Topbar -->
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+					<form th:action="@{/letra/registrar}" method="post"
+						th:object="${letra}">
+						<div class="form-group">
+							<label for="idLetra">ID:</label> <input type="text"
+								class="form-control" th:field="*{idLetra}"></input>
+
+							<div class="form-group">
+								<label for="valor_nominal">VALOR NOMINAL:</label> <input
+									type="text" class="form-control" th:field="*{valor_nominal}"
+									id="nombre"></input>
+
+								<div class="alert alert-danger"
+									th:if="${#fields.hasErrors('valor_nominal')}"
+									th:errors="*{valor_nominal}"></div>
+
+								<label for="moneda">MONEDA:</label> <select class="form-control"
+									th:field="*{idMoneda.idMoneda}">
+									<option th:each="m: ${listaMonedas}" th:value="${m.idMoneda}"
+										th:text="${m.nombreMoneda}"
+										th:selected="(${m.idMoneda} == *{idMoneda.idMoneda})"></option>
+								</select>
+
+								<div class="form-group">
+									<label for="fecha_emision">FECHA EMISION:</label> <input
+										type="date" class="form-control" th:field="*{fecha_emision}"
+										id="fecha_emision"></input>
+
+									<div class="alert alert-danger"
+										th:if="${#fields.hasErrors('fecha_emision')}"
+										th:errors="*{fecha_emision}"></div>
+
+									<div class="form-group">
+										<label for="fecha_vencimiento">FECHA VENCIMIENTO:</label> <input
+											type="date" class="form-control"
+											th:field="*{fecha_vencimiento}" id="fecha_vencimiento"></input>
+
+										<div class="alert alert-danger"
+											th:if="${#fields.hasErrors('fecha_vencimiento')}"
+											th:errors="*{fecha_vencimiento}"></div>
+									</div>
+								</div>
+								
+								<label for="valorTasa">TASA:</label> <input
+									type="text" class="form-control" th:field="*{valorTasa}"
+									id="valorTasa"></input>
+
+								<div class="alert alert-danger"
+									th:if="${#fields.hasErrors('valorTasa')}"
+									th:errors="*{valorTasa}"></div>
+
+								<div class="form-group">
+									<label for="tasa">TIPO DE TASA:</label> <select
+										class="form-control" th:field="*{tasa.idTasa}">
+										<option th:each="t: ${listaTasas}"
+											th:value="${t.idTasa}" th:text="${t.nombreTasa}"
+											th:selected="(${t.idTasa} == *{tasa.idTasa})">
+										</option>
+									</select>
+								</div>
+								
+								<div class="form-group">
+									<label for="TipoTasa">PERIODO DE TASA</label> <select
+										class="form-control" th:field="*{tipoTasa.idTipoTasa}">
+										<option th:each="ts: ${listaTiposTasas}"
+											th:value="${ts.idTipoTasa}" th:text="${ts.nombreTipoTasa}"
+											th:selected="(${ts.idTipoTasa} == *{tipoTasa.idTipoTasa})">
+										</option>
+									</select>
+								</div>
+
+								<label for="costes_gastos">COSTES/GASTOS:</label> <input
+									type="text" class="form-control" th:field="*{costes_gastos}"
+									id="costes_gastos"></input>
+
+								<div class="alert alert-danger"
+									th:if="${#fields.hasErrors('costes_gastos')}"
+									th:errors="*{costes_gastos}"></div>
+
+							</div>
+
+						</div>
+						<button type="submit" class="btn btn-primary">Aceptar</button>
+						<a href="/letra/listar" class="btn btn-danger">Cancelar</a>
+					</form>
+				</div>
+				<div th:replace="fragments/footer :: footer"></div>
+
+			</div>
+			<!-- End of Content Wrapper -->
+
+		</div>
+		<!-- End of Page Wrapper -->
+
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top"> <i
+			class="fas fa-angle-up"></i>
+		</a>
+
+		<!-- Logout Modal-->
+		<div th:replace="fragments/logout:: logout"></div>
+
+		<!-- Bootstrap core JavaScript-->
+		<script src="/vendor/jquery/jquery.min.js"></script>
+		<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+		<!-- Core plugin JavaScript-->
+		<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+		<!-- Custom scripts for all pages-->
+		<script src="/js/sb-admin-2.min.js"></script>
+</body>
+
+</html>
